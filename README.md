@@ -24,7 +24,7 @@ Escrever sobre flyway
 # Testes
 Escrever sobre cucumber e funcionamento dos testes
 
-# Escrever sobre integração continua
+# Escrever sobre integração continua com jenkins
 
 Relatório de teste BDD em formato HTML 
 ~/target/cucumber/index.html

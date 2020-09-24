@@ -26,7 +26,7 @@ node {
     }
 
     stage('Scripts'){
-        sh "mvn flyway:migrate -Dflyway.url=jdbc:postgresql://intelector.com.br:5432/db -Dflyway.user=admin -Dflyway.password=Thiag0@0703"
+        sh "mvn flyway:migrate -Dflyway.url=jdbc:postgresql://intelector.com.br/db_pj_ref_sb -Dflyway.user=app_db -Dflyway.password=app@0703"
     }
 
     stage('Build App'){

@@ -7,9 +7,9 @@ app:
     password: 24680
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/db
-    username: admin
-    password: admin
+    url: jdbc:postgresql://intelector.com.br/db_pj_ref_sb
+    username: app_db
+    password: app@0703
     driverClassName: org.postgresql.Driver
   jpa:
     showSql: true

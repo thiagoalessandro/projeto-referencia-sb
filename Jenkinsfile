@@ -30,7 +30,7 @@ node {
     }
 
     stage('Build App'){
-        sh "mvn install"
+        sh "mvn install -DskipTests"
     }
 
     stage('Image Build'){

@@ -1,0 +1,57 @@
+app:
+  name: projeto-referencia-sb
+  build:
+    version: @project.version@
+  credentials:
+    user: admin
+    password: 24680
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/db
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver
+  jpa:
+    showSql: true
+    hibernate:
+      ddlAuto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  profiles:
+    active: dev
+# logging
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %clr([${app.name}]){magenta}%clr(%X{keyContext}){magenta}%clr(%X{traceId}){magenta} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %clr([${app.name}]){magenta}%clr(%X{keyContext}){magenta}%clr(%X{traceId}){magenta} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+  level:
+    root: DEBUG
+    org:
+      hibernate:
+        type: DEBUG
+server:
+  servlet:
+    context-path: /${app.name}
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health,flyway,info,prometheus,metrics'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

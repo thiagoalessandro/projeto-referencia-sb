@@ -1,4 +1,4 @@
-package br.com.packagebase.projetoreferenciasb.integration.rest.dto;
+package br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

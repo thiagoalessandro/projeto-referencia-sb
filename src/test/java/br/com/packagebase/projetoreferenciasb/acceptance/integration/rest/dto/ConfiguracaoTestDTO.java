@@ -1,4 +1,4 @@
-package br.com.packagebase.projetoreferenciasb.integration.rest.dto;
+package br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

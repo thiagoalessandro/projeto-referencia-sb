@@ -1,4 +1,4 @@
-package br.com.packagebase.projetoreferenciasb.integration.rest;
+package br.com.packagebase.projetoreferenciasb.acceptance.integration.rest;
 
 import br.com.packagebase.projetoreferenciasb.ContextTests;
 import br.com.packagebase.projetoreferenciasb.model.AbstractEntity;

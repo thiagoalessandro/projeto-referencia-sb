@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 public class ConfiguracaoValidaTests extends AbstractRestTest<Configuracao, ConfiguracaoService> {
 
     @Autowired
@@ -43,13 +44,13 @@ public class ConfiguracaoValidaTests extends AbstractRestTest<Configuracao, Conf
         deleteDataFromMvcResult(result);
     }
 
-    @Dada("^uma configuracao validaa$")
-    public void uma_configuracao_valida()  throws Throwable {
+    @Dada("^uma configuracao valida$")
+    public void configuracaoValida() {
         requestDTO = ConfiguracaoTestDTO.mock(null, "SISTEMA", "SB");
     }
 
-    @Quando("^a configuracao valida e cadastradaa$")
-    public void a_configuracao_valida_e_cadastrada()  throws Throwable {
+    @Quando("^a configuracao valida e cadastrada$")
+    public void configuracaoValidaCadastrada()  throws Throwable {
         result = getMockMvc().perform(
                 post(ResourceWSRest.CONFIGURACAO)
                         .content(requestDTO.toJson())
@@ -57,8 +58,8 @@ public class ConfiguracaoValidaTests extends AbstractRestTest<Configuracao, Conf
                         .andDo(MockMvcResultHandlers.print());
     }
 
-    @Entao("^a configuracao valida e salvaa$")
-    public void a_configuracao_valida_e_salva()  throws Throwable {
+    @Entao("^a configuracao valida e salva$")
+    public void configuracaoValidaSalva()  throws Throwable {
         result.andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errors").exists())

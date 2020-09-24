@@ -51,16 +51,24 @@ public abstract class AbstractRestTest<T extends AbstractEntity, S extends Gener
 
     protected void deleteDataFromMvcResult(ResultActions result) {
         Long id;
-        try {
-            id = getIdFromResponse(result.andReturn().getResponse());
-            delete(id);
-        } catch (NullPointerException | IOException e) {
-           e.printStackTrace();
+        if(result != null) {
+            try {
+                id = getIdFromResponse(result.andReturn().getResponse());
+                delete(id);
+            } catch (NullPointerException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     protected void delete(Long id) {
-        getService().deleteById(id);
+        if(id != null) {
+            try {
+                getService().deleteById(id);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     protected abstract S getService();

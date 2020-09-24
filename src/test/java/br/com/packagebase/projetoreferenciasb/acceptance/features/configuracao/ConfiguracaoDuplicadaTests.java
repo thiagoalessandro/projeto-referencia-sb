@@ -1,8 +1,9 @@
 package br.com.packagebase.projetoreferenciasb.acceptance.features.configuracao;
 
-import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest;
 import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.AbstractRestTest;
 import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.dto.ConfiguracaoTestDTO;
+import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest;
+import br.com.packagebase.projetoreferenciasb.domain.DominioSituacaoRegistro;
 import br.com.packagebase.projetoreferenciasb.model.Configuracao;
 import br.com.packagebase.projetoreferenciasb.service.ConfiguracaoService;
 import cucumber.api.java.After;
@@ -19,7 +20,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,6 +29,8 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     @Autowired
     @Getter(AccessLevel.PROTECTED)
     private ConfiguracaoService service;
+
+    private Configuracao configuracaoInicial;
 
     private ConfiguracaoTestDTO requestDTO;
 
@@ -43,16 +45,17 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     @After
     @Override
     public void clean() {
-        //deleteDataFromMvcResult(result);
+        delete(configuracaoInicial.getId());
     }
 
-    @Dada("^uma configuracao valida$")
-    public void uma_configuracao_valida() {
+    @Dada("^uma configuracao duplicada$")
+    public void configuracaoDuplicada() {
+        preparaConfiguracaoDuplicada();
         requestDTO = ConfiguracaoTestDTO.mock(null, "SISTEMA", "SB");
     }
 
-    @Quando("^a configuracao valida e cadastrada$")
-    public void a_configuracao_valida_e_cadastrada() throws Throwable {
+    @Quando("^a configuracao duplicada e cadastrada$")
+    public void configuracaoDuplicadaCadastrada() throws Throwable {
         result = getMockMvc().perform(
                 post(ResourceWSRest.CONFIGURACAO)
                         .content(requestDTO.toJson())
@@ -60,13 +63,18 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    @Entao("^a configuracao valida e salva$")
-    public void a_configuracao_valida_e_salva() throws Throwable {
-        result.andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errors").isArray())
-                .andReturn();
+    @Entao("^a configuracao duplicada e rejeitada$")
+    public void configuracaoDuplicadaRejeitada() throws Throwable {
+        result.andExpect(status().isBadRequest()).andReturn();
+    }
+
+    private void preparaConfiguracaoDuplicada() {
+        configuracaoInicial = new Configuracao();
+        configuracaoInicial.setNome("SISTEMA");
+        configuracaoInicial.setValor("TESTE");
+        configuracaoInicial.setSituacaoRegistro(DominioSituacaoRegistro.ATIVO);
+        configuracaoInicial.setUsuarioAtualizacao("ADMIN");
+        configuracaoInicial = service.saveAndFlush(configuracaoInicial);
     }
 
 }

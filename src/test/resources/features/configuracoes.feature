@@ -7,10 +7,10 @@ Funcionalidade: Gerenciando configurações
     Quando a configuracao valida e cadastrada
     Entao a configuracao valida e salva
 
-  Cenario: Cadastrando configuracao validaa
-    Dada uma configuracao validaa
-    Quando a configuracao valida e cadastradaa
-    Entao a configuracao valida e salvaa
+  Cenario: Cadastrando configuracao duplicada
+    Dada uma configuracao duplicada
+    Quando a configuracao duplicada e cadastrada
+    Entao a configuracao duplicada e rejeitada
 
 
 

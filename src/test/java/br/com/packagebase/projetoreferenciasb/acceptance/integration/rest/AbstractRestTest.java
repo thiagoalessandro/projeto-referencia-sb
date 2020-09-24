@@ -65,9 +65,7 @@ public abstract class AbstractRestTest<T extends AbstractEntity, S extends Gener
         if(id != null) {
             try {
                 getService().deleteById(id);
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
+            } catch (NullPointerException ignored) {}
         }
     }
 

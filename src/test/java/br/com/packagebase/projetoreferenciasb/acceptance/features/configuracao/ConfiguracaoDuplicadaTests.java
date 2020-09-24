@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Objects;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,7 +32,7 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     @Getter(AccessLevel.PROTECTED)
     private ConfiguracaoService service;
 
-    private Configuracao configuracaoInicial;
+    private Configuracao configuracaoInicial = new Configuracao();
 
     private ConfiguracaoTestDTO requestDTO;
 
@@ -69,7 +71,6 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     }
 
     private void preparaConfiguracaoDuplicada() {
-        configuracaoInicial = new Configuracao();
         configuracaoInicial.setNome("SISTEMA");
         configuracaoInicial.setValor("TESTE");
         configuracaoInicial.setSituacaoRegistro(DominioSituacaoRegistro.ATIVO);

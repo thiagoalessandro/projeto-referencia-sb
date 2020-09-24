@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public abstract class AbstractRestTest<T extends AbstractEntity, S extends GenericService> extends ContextTests {
 
@@ -55,16 +56,15 @@ public abstract class AbstractRestTest<T extends AbstractEntity, S extends Gener
             try {
                 id = getIdFromResponse(result.andReturn().getResponse());
                 delete(id);
-            } catch (NullPointerException | IOException e) {
-                e.printStackTrace();
-            }
+            } catch (NullPointerException | IOException ignored) {}
         }
     }
 
     protected void delete(Long id) {
         if(id != null) {
             try {
-                getService().deleteById(id);
+                getService().findById(id)
+                        .ifPresent(value -> getService().deleteById(id));
             } catch (NullPointerException ignored) {}
         }
     }

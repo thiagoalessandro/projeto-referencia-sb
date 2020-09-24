@@ -1,5 +1,5 @@
-def CONTAINER_NAME="spring-config-server"
-def HTTP_PORT_HOST="8999"
+def CONTAINER_NAME="projeto-referencia-sb"
+def HTTP_PORT_HOST="8889"
 def HTTP_PORT_CONTAINER="8080"
 def DOCKER_HUB_USER
 def DOCKER_HUB_PASSWORD
@@ -11,7 +11,6 @@ node {
         def dockerHome = tool 'myDocker'
         def mavenHome  = tool 'myMaven'
         env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
-        CONTAINER_TAG = readMavenPom().getVersion()
         withCredentials([usernamePassword(credentialsId: 'dockerHubAccount', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             DOCKER_HUB_USER = USERNAME
             DOCKER_HUB_PASSWORD = PASSWORD
@@ -22,19 +21,25 @@ node {
         checkout scm
     }
 
-    stage('Build'){
-        sh "mvn clean install -DskipTests"
+    stage('Tests') {
+        sh "mvn clean test"
     }
 
-    stage("Image Prune"){
-        imagePrune(CONTAINER_NAME)
+    stage('Scripts'){
+        sh "mvn flyway:migrate -Dflyway.url=jdbc:postgresql://intelector.com.br:5432/db -Dflyway.user=admin -Dflyway.password=Thiag0@0703"
+    }
+
+    stage('Build App'){
+        sh "mvn install"
     }
 
     stage('Image Build'){
+        CONTAINER_TAG = readMavenPom().getVersion()
+        imagePrune(CONTAINER_NAME)
         imageBuild(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER)
     }
 
-    stage('Push to Docker Registry'){
+    stage('Image Register'){
         pushToImage(CONTAINER_NAME, CONTAINER_TAG, DOCKER_HUB_USER, DOCKER_HUB_PASSWORD)
     }
 
@@ -63,7 +68,6 @@ def pushToImage(containerName, tag, dockerHubUser, dockerPassword){
 }
 
 def runApp(containerName, tag, dockerHubUser, httpPortHost, httpPortContainer){
-    sh "docker pull $dockerHubUser/$containerName:$tag"
     sh "docker run -d --rm -p $httpPortHost:$httpPortContainer --name $containerName $dockerHubUser/$containerName:$tag"
     echo "Application started on port: ${httpPortHost} (http)"
 }

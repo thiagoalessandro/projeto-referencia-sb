@@ -39,7 +39,7 @@ public class ActuatorSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/actuator/**").authenticated()
+                .antMatchers("/actuator-ignore/**").authenticated()
                 .anyRequest().permitAll()
                 .and().httpBasic();
     }

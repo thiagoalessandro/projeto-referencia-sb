@@ -1,8 +1,8 @@
 package br.com.packagebase.projetoreferenciasb.acceptance.features.configuracao;
 
 import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest;
-import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.AbstractRestTest;
-import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.dto.ConfiguracaoTestDTO;
+import br.com.packagebase.projetoreferenciasb.integration.rest.AbstractRestTest;
+import br.com.packagebase.projetoreferenciasb.integration.rest.dto.ConfiguracaoTestDTO;
 import br.com.packagebase.projetoreferenciasb.model.Configuracao;
 import br.com.packagebase.projetoreferenciasb.service.ConfiguracaoService;
 import cucumber.api.java.After;

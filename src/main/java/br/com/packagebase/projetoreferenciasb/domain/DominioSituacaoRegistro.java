@@ -18,10 +18,9 @@ public enum DominioSituacaoRegistro implements IBasicDominio {
 
 	public static DominioSituacaoRegistro convertStringToEnum(String situacao) {
 		switch (situacao) {
-			case "A":
-				return DominioSituacaoRegistro.ATIVO;
 			case "E":
 				return DominioSituacaoRegistro.EXCLUIDO;
+			case "A":
 			default:
 				return DominioSituacaoRegistro.ATIVO;
 		}

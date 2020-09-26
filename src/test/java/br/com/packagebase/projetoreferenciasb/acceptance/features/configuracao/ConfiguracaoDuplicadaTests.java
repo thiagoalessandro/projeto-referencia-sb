@@ -1,7 +1,7 @@
 package br.com.packagebase.projetoreferenciasb.acceptance.features.configuracao;
 
-import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.AbstractRestTest;
-import br.com.packagebase.projetoreferenciasb.acceptance.integration.rest.dto.ConfiguracaoTestDTO;
+import br.com.packagebase.projetoreferenciasb.integration.rest.AbstractRestTest;
+import br.com.packagebase.projetoreferenciasb.integration.rest.dto.ConfiguracaoTestDTO;
 import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest;
 import br.com.packagebase.projetoreferenciasb.domain.DominioSituacaoRegistro;
 import br.com.packagebase.projetoreferenciasb.model.Configuracao;
@@ -18,9 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.Objects;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

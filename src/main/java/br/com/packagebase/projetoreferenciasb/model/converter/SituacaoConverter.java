@@ -10,7 +10,7 @@ public class SituacaoConverter implements AttributeConverter<DominioSituacaoRegi
 
 	@Override
 	public String convertToDatabaseColumn(DominioSituacaoRegistro attribute) {
-		return attribute.getDescription();
+		return attribute != null ? attribute.getDescription() : "";
 	}
 
 	@Override

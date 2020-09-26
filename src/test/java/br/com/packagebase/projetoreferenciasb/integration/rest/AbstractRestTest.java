@@ -1,4 +1,4 @@
-package br.com.packagebase.projetoreferenciasb.acceptance.integration.rest;
+package br.com.packagebase.projetoreferenciasb.integration.rest;
 
 import br.com.packagebase.projetoreferenciasb.ContextTests;
 import br.com.packagebase.projetoreferenciasb.model.AbstractEntity;
@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public abstract class AbstractRestTest<T extends AbstractEntity, S extends GenericService> extends ContextTests {
 

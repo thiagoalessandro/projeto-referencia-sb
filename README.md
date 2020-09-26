@@ -13,13 +13,21 @@ Escrever sobre o actuator e prometheus
 # Documentação
 Escrever sobre o swagger
 
-# Análise de log - TraceId
+# Análise de log (Rastreabilidade) - TraceId
+Incluir endpoint
+Hora transação iniciada
+Hora transação concluida 
+Payload criptografado
 Escrever sobre análise de log
+
+# Auditoria
+Incluir envers
 
 # Versionamento de script SQL
 Escrever sobre flyway
 
 # Versão Aplicação
+Escrever sobre o actuator
 
 # Testes
 Escrever sobre cucumber e funcionamento dos testes

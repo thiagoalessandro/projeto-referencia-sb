@@ -55,6 +55,7 @@ public abstract class AbstractService<R extends GenericRepository, T extends Abs
 
             return entitySaved;
         } catch (DataIntegrityViolationException e) {
+            log.error(e);
             if (e.getCause().getCause().getMessage().contains("not-null"))
                 throw new ValidationException(messagesApp.get("message.repository.default.data.notnull"));
             else if (e.getCause().getCause().getMessage().contains("duplicate"))

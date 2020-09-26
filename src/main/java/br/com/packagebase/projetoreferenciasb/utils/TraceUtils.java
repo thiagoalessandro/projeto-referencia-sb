@@ -10,6 +10,7 @@ public class TraceUtils {
 
     public static final String CONTEXT_API = "api";
     private static final String TRACE_ID = "traceId";
+    private static final String IP = "ip";
     private static final String KEY_CONTEXTO = "keyContext";
 
     public static String generateTraceId() {
@@ -37,10 +38,7 @@ public class TraceUtils {
 
     public static void limparContextoMDC() {
         try {
-            if (getTraceId() != null)
-                MDC.remove(TraceUtils.TRACE_ID);
-            if (getKeyContexto() != null)
-                MDC.remove(TraceUtils.KEY_CONTEXTO);
+            MDC.clear();
         } catch (Exception e) {
             log.warn(" Erro ao limpar o MDC", e);
         }
@@ -62,6 +60,15 @@ public class TraceUtils {
                 return MDC.get(KEY_CONTEXTO);
         } catch (Exception e) {
             log.warn(" Erro ao recuperar contexto do MDC", e);
+        }
+        return null;
+    }
+    public static String getIp() {
+        try {
+            if (MDC.get(TraceUtils.IP) != null)
+                return MDC.get(IP);
+        } catch (Exception e) {
+            log.warn(" Erro ao recuperar ip do MDC", e);
         }
         return null;
     }

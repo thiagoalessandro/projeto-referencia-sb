@@ -4,6 +4,8 @@ import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@ToString
+@Audited(auditParents = AbstractEntity.class)
 @Table(name = "tbl_configuracao", uniqueConstraints = @UniqueConstraint(name = "uk_configuracao_nome", columnNames = "nome"))
 public class Configuracao extends AbstractEntity {
 

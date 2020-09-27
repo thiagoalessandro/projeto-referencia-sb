@@ -8,7 +8,7 @@ import java.util.Locale;
 @Component
 public class MessagesApp {
 
-    private static final String MESSAGE_API = "message.api";
+    private static final String PREFIX_MESSAGE_PROPERTY = "message.";
 
     private final ResourceBundleMessageSource messageSource;
 
@@ -31,7 +31,7 @@ public class MessagesApp {
     }
 
     public String handleMessage(String message){
-        if(message.contains(MESSAGE_API))
+        if(message.contains(PREFIX_MESSAGE_PROPERTY))
             return get(message);
         return message;
     }

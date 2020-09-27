@@ -4,7 +4,9 @@ public enum DominioOperacao implements IBasicDominio {
 
 	CADASTRAR("Cadastrar"),
 	EDITAR("Editar"),
+	CONSULTAR("Consulta"),
 	EXCLUIR("Excluir");
+
 
 	private final String description;
 

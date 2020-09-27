@@ -30,8 +30,4 @@ public class Configuracao extends AbstractEntity {
     @Column(name = "valor", length = 50, nullable = false)
     private String valor;
 
-    @Override
-    public DominioRecurso getDominioRecurso() {
-        return DominioRecurso.CONFIGURACAO;
-    }
 }

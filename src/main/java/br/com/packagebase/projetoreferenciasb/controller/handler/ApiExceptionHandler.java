@@ -3,6 +3,8 @@ package br.com.packagebase.projetoreferenciasb.controller.handler;
 import br.com.packagebase.projetoreferenciasb.component.MessagesApp;
 import br.com.packagebase.projetoreferenciasb.controller.ws.rest.dto.response.Response;
 import br.com.packagebase.projetoreferenciasb.exception.ValidationException;
+import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +50,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             response.getErrors().add(messagesApp.handleMessage(Objects.requireNonNull(fieldError.getDefaultMessage())));
         }
+        registerErrorsMDC(response.getErrors());
         return super.handleExceptionInternal(ex, response, headers, HttpStatus.BAD_REQUEST, request);
     }
 
@@ -58,21 +61,30 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         for (ConstraintViolation<?> violation : violations) {
             response.getErrors().add(violation.getMessage());
         }
+        registerErrorsMDC(response.getErrors());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(value = {ValidationException.class})
     public ResponseEntity<Object> validationException(ValidationException e) {
         Response<List<String>> response = new Response<>();
-        response.getErrors().add(e.getMessage());
+        String error = messagesApp.handleMessage(e.getMessage());
+        response.getErrors().add(error);
+        registerErrorsMDC(response.getErrors());
         return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity illegalArgumentException(IllegalArgumentException exception) {
         Response<List<String>> response = new Response<>();
-        response.getErrors().add(messagesApp.handleMessage(exception.getMessage()));
+        String error = messagesApp.handleMessage(exception.getMessage());
+        response.getErrors().add(error);
+        registerErrorsMDC(response.getErrors());
         return ResponseEntity.badRequest().body(response);
+    }
+
+    private void registerErrorsMDC(List<String> errors) {
+        TraceUtils.setTransaction(TraceUtils.TRANSACTION_RESPONSE_ERRORS, ArrayUtils.toString(errors));
     }
 
 }

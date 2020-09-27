@@ -3,11 +3,7 @@ package br.com.packagebase.projetoreferenciasb.model;
 import br.com.packagebase.projetoreferenciasb.domain.DominioOperacao;
 import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,38 +21,61 @@ public class LogTrace {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "dominio", length = 15, nullable = false)
+    @Column(name = "dominio", length = 15)
     private DominioRecurso dominio;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "operacao", length = 15, nullable = false)
+    @Column(name = "operacao", length = 15)
     private DominioOperacao operacao;
 
-    @Column(name = "chave", nullable = false)
+    @Column(name = "chave")
     private Long chave;
 
     @Column(name = "trace_id", length = 15, nullable = false)
     private String traceId;
 
-    @NotNull(message = "Usuário de atualização é obrigatório")
-    @Column(name = "cd_usu_atu", length = 25, nullable = false)
-    private String usuarioAtualizacao;
+    @Column(name = "req_path")
+    private String requestPath;
+
+    @Column(name = "resp_status")
+    private Integer responseStatus;
+
+    @Column(name = "resp_errors")
+    private String responseErrors;
+
+    @Column(name = "exception")
+    private String exception;
+
+    @Column(name = "req_method", length = 10)
+    private String requestMethod;
+
+    @Column(name = "req_query")
+    private String requestQuery;
+
+    @Column(name = "ip", length = 20)
+    private String ip;
+
+    @NotNull(message = "Usuário é obrigatório")
+    @Column(name = "cd_usu", length = 25, nullable = false)
+    private String usuario;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "dh_atu", nullable = false)
-    private Date dataHoraAtualizacao;
+    @Column(name = "dh_ini", nullable = false)
+    private Date dataHoraInicio;
 
-    public LogTrace(DominioRecurso dominioRecurso,
-                    Long chave,
-                    String traceId,
-                    DominioOperacao dominioOperacao,
-                    String usuarioAtualizacao) {
-        this.dominio = dominioRecurso;
-        this.chave = chave;
-        this.traceId = traceId;
-        this.operacao = dominioOperacao;
-        this.dataHoraAtualizacao = new Date();
-        this.usuarioAtualizacao = usuarioAtualizacao;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "dh_fim", nullable = false)
+    private Date dataHoraFim;
+
+    @Column(name = "resp_time_ms", nullable = false)
+    private Integer tempoRespostaMs;
+
+    public Integer calcularTempoResposaMilisegundos() {
+        if (dataHoraInicio != null && dataHoraFim != null) {
+            Long tempoResposta = dataHoraFim.getTime() - dataHoraInicio.getTime();
+            return tempoResposta.intValue();
+        }
+        return null;
     }
 
 }

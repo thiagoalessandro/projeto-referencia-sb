@@ -2,6 +2,7 @@ package br.com.packagebase.projetoreferenciasb.model;
 
 import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
 import br.com.packagebase.projetoreferenciasb.domain.DominioSituacaoRegistro;
+import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
@@ -17,6 +18,8 @@ public abstract class AbstractEntity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+    public abstract Long getId();
+
     @Column(name = "id_sit", length = 1)
     private DominioSituacaoRegistro situacaoRegistro;
 
@@ -28,24 +31,29 @@ public abstract class AbstractEntity implements Serializable{
     @Column(name = "dh_atu", nullable = false)
     private Date dataHoraAtualizacao;
 
-    public abstract DominioRecurso getDominioRecurso();
-
     @PrePersist
     public void prePersist() {
         dataHoraAtualizacao = new Date();
         situacaoRegistro = DominioSituacaoRegistro.ATIVO;
+        registerDataMDC();
     }
 
     @PreUpdate
     public void preUpdate() {
 		dataHoraAtualizacao = new Date();
+        registerDataMDC();
 	}
 
 	@PreRemove
 	public void preRemove() {
-		dataHoraAtualizacao = new Date();
+        dataHoraAtualizacao = new Date();
+        registerDataMDC();
 	}
 
-	public abstract Long getId();
+    @PostPersist
+    private void registerDataMDC(){
+        Long id = this.getId();
+        TraceUtils.setTransaction(TraceUtils.TRANSACTION_ID, id != null ? id.toString() : null);
+    }
 
 }

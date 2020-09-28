@@ -2,11 +2,10 @@ package br.com.packagebase.projetoreferenciasb.controller.handler;
 
 import br.com.packagebase.projetoreferenciasb.domain.DominioOperacao;
 import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
-import br.com.packagebase.projetoreferenciasb.model.LogTrace;
+import br.com.packagebase.projetoreferenciasb.model.LogTransacional;
 import br.com.packagebase.projetoreferenciasb.utils.HttpReqRespUtils;
 import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -46,55 +45,53 @@ public class RequestInterceptorHandler implements HandlerInterceptor {
         log.info("Path: {}", request.getRequestURI());
         log.info("Method: {}", request.getMethod());
         log.info("Query {}", request.getQueryString());
-        this.createLogTrace(request, response);
+        this.createLogTransacional(request, response);
         TraceUtils.limparContextoMDC();
     }
 
-    public void createLogTrace(HttpServletRequest request, HttpServletResponse response) {
-        LogTrace logTrace = new LogTrace();
+    public void createLogTransacional(HttpServletRequest request, HttpServletResponse response) {
+        //TODO Ideal que log transacional seja enviado via mensagem (Ex: kafka)
         try {
             String transactionDomain = TraceUtils.getTransaction(TRANSACTION_RESOURCE);
-            logTrace.setDominio(transactionDomain != null ? DominioRecurso.valueOf(TraceUtils.getTransaction(TRANSACTION_RESOURCE)) : null);
             String transactionOperation = TraceUtils.getTransaction(TRANSACTION_OPERATION);
-            logTrace.setOperacao(handleTransactionOperation(transactionOperation, request));
             String transactionId = TraceUtils.getTransaction(TRANSACTION_ID);
-            logTrace.setChave(transactionId != null ? Long.valueOf(transactionId) : null);
             String transactionResponseErrors = TraceUtils.getTransaction(TRANSACTION_RESPONSE_ERRORS);
-            logTrace.setResponseErrors(transactionResponseErrors);
             String transactionException = TraceUtils.getTransaction(TRANSACTION_EXCEPTION);
-            logTrace.setException(transactionException);
-            logTrace.setTraceId(TraceUtils.getTraceId());
-            logTrace.setRequestPath(request.getRequestURI());
-            logTrace.setResponseStatus(response.getStatus());
-            logTrace.setRequestMethod(request.getMethod());
-            logTrace.setRequestQuery(request.getQueryString());
-            logTrace.setIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist());
-            //TODO: Capturar do SpringSecurity
+            String transactionRevision = TraceUtils.getTransaction(TRANSACTION_REVISION);
             String transactionTimeBegin = TraceUtils.getTransaction(TRANSACTION_TIME_BEGIN);
-            logTrace.setDataHoraInicio(transactionTimeBegin != null ? new Date(Long.parseLong(transactionTimeBegin)) : null);
-            logTrace.setDataHoraFim(new Date());
-            logTrace.setTempoRespostaMs(logTrace.calcularTempoResposaMilisegundos());
-            logTrace.setUsuario("DEFAULT");
-            applicationEventPublisher.publishEvent(logTrace);
+
+            LogTransacional logTransacional = LogTransacional.builder()
+                    .dominio(transactionDomain != null ? DominioRecurso.valueOf(TraceUtils.getTransaction(TRANSACTION_RESOURCE)) : null)
+                    .operacao(transactionOperation != null ? DominioOperacao.valueOf(transactionOperation) : null)
+                    .chave(transactionId != null ? Long.valueOf(transactionId) : null)
+                    .responseErrors(transactionResponseErrors)
+                    .exception(transactionException)
+                    .revisao(transactionRevision != null ? Long.valueOf(transactionRevision) : null)
+                    .traceId(TraceUtils.getTraceId())
+                    .requestPath(request.getRequestURI())
+                    .responseStatus(response.getStatus())
+                    .requestMethod(request.getMethod())
+                    .requestQuery(request.getQueryString())
+                    .ip(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
+                    .dataHoraInicio(transactionTimeBegin != null ? new Date(Long.parseLong(transactionTimeBegin)) : null)
+                    .dataHoraFim(new Date())
+                    //TODO: Capturar usuário do SpringSecurity quando existir camada de segurança
+                    .usuario("DEFAULT")
+                    .build();
+
+            logTransacional.setTempoRespostaMs(calcularTempoResposaMilisegundos(logTransacional.getDataHoraInicio(), logTransacional.getDataHoraFim()));
+            applicationEventPublisher.publishEvent(logTransacional);
         } catch (Exception e) {
             log.error(e);
         }
     }
 
-    private DominioOperacao handleTransactionOperation(String transactionOperation, HttpServletRequest request) {
-        if (transactionOperation == null) {
-            switch (request.getMethod()) {
-                case "GET":
-                    return DominioOperacao.CONSULTAR;
-                case "POST":
-                    return DominioOperacao.CADASTRAR;
-                case "PUT":
-                    return DominioOperacao.EDITAR;
-                case "DELETE":
-                    return DominioOperacao.EXCLUIR;
-            }
+    public Integer calcularTempoResposaMilisegundos(Date dataHoraInicio, Date dataHoraFim) {
+        if (dataHoraInicio != null && dataHoraFim != null) {
+            Long tempoResposta = dataHoraFim.getTime() - dataHoraInicio.getTime();
+            return tempoResposta.intValue();
         }
-        return DominioOperacao.valueOf(TraceUtils.getTransaction(TRANSACTION_OPERATION));
+        return null;
     }
 
 }

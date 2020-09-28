@@ -1,9 +1,11 @@
 package br.com.packagebase.projetoreferenciasb.model;
 
-import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
 import br.com.packagebase.projetoreferenciasb.domain.DominioSituacaoRegistro;
 import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.util.Date;
 
 @Log4j2
 @Data
+@NoArgsConstructor
+@SuperBuilder
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable{
 	
@@ -32,20 +36,20 @@ public abstract class AbstractEntity implements Serializable{
     private Date dataHoraAtualizacao;
 
     @PrePersist
-    public void prePersist() {
+    private void prePersist() {
         dataHoraAtualizacao = new Date();
         situacaoRegistro = DominioSituacaoRegistro.ATIVO;
         registerDataMDC();
     }
 
     @PreUpdate
-    public void preUpdate() {
+    private void preUpdate() {
 		dataHoraAtualizacao = new Date();
         registerDataMDC();
 	}
 
 	@PreRemove
-	public void preRemove() {
+    private void preRemove() {
         dataHoraAtualizacao = new Date();
         registerDataMDC();
 	}

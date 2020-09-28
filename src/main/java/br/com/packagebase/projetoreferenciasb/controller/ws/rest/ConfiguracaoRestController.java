@@ -1,6 +1,6 @@
 package br.com.packagebase.projetoreferenciasb.controller.ws.rest;
 
-import br.com.packagebase.projetoreferenciasb.annotation.TraceTransaction;
+import br.com.packagebase.projetoreferenciasb.annotation.LogApp;
 import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest;
 import br.com.packagebase.projetoreferenciasb.controller.ws.rest.dto.request.ConfiguracaoRequestDTO;
 import br.com.packagebase.projetoreferenciasb.controller.ws.rest.dto.response.ConfiguracaoResponseDTO;
@@ -9,7 +9,6 @@ import br.com.packagebase.projetoreferenciasb.domain.DominioOperacao;
 import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
 import br.com.packagebase.projetoreferenciasb.exception.ValidationException;
 import br.com.packagebase.projetoreferenciasb.service.ConfiguracaoService;
-import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class ConfiguracaoRestController extends AbstractRestController {
     }
 
     @PostMapping
-    @TraceTransaction(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.CADASTRAR)
+    @LogApp(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.CADASTRAR)
     @ApiOperation(value = "Cadastrar Configuração")
     public ResponseEntity<Response<ConfiguracaoResponseDTO>> cadastrar(@RequestBody ConfiguracaoRequestDTO configuracaoRequestDTO) throws ValidationException {
         Response<ConfiguracaoResponseDTO> response = new Response<>();
@@ -38,7 +37,7 @@ public class ConfiguracaoRestController extends AbstractRestController {
     }
 
     @PutMapping
-    @TraceTransaction(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.EDITAR)
+    @LogApp(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.EDITAR)
     @ApiOperation(value = "Editar Configuração")
     public ResponseEntity<Response<ConfiguracaoResponseDTO>> edit(@RequestBody ConfiguracaoRequestDTO configuracaoRequestDTO) throws ValidationException {
         Response<ConfiguracaoResponseDTO> response = new Response<>();
@@ -49,7 +48,7 @@ public class ConfiguracaoRestController extends AbstractRestController {
     }
 
     @DeleteMapping("/{id}")
-    @TraceTransaction(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.EXCLUIR)
+    @LogApp(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.EXCLUIR)
     @ApiOperation(value = "Excluir Configuração")
     public ResponseEntity<Response<String>> delete(@PathVariable("id") Long id) throws ValidationException {
         configuracaoService.delete(id);
@@ -57,7 +56,7 @@ public class ConfiguracaoRestController extends AbstractRestController {
     }
 
     @GetMapping("/{nome}")
-    @TraceTransaction(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.CONSULTAR)
+    @LogApp(recurso = DominioRecurso.CONFIGURACAO, operacao = DominioOperacao.CONSULTAR)
     @ApiOperation(value = "Consultar Configuração")
     public ResponseEntity<Response<ConfiguracaoResponseDTO>> search(@PathVariable(name = "nome") String nome) throws ValidationException {
         Response<ConfiguracaoResponseDTO> response = new Response<>();

@@ -1,11 +1,23 @@
 # Projeto de referência Spring Boot
-Descrição do projeto
+Projeto de referência em spring boot com recursos essenciais para possibilitar integração contínua e monitoramento. 
 
-# Arquitetura
-Detalhar tecnologias
+# Tenologia
+- Spring Boot
+- Tomcat 
+- Flyway
+- Hibernate Envers
+- Jenkins
+- Prometheus
+- Grafana
+- Docker
+- Cucumber
+- Swagger
+- Postgres
+- H2 (tests)
 
 # Configuração Ambiente
-Escrever sobre o docker, postgres
+ 
+Executar docker-compose
 
 # Monitoramento
 Escrever sobre o actuator e prometheus

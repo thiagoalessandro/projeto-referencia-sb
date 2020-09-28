@@ -1,6 +1,6 @@
 package br.com.packagebase.projetoreferenciasb.config;
 
-import br.com.packagebase.projetoreferenciasb.annotation.TraceTransaction;
+import br.com.packagebase.projetoreferenciasb.annotation.LogApp;
 import br.com.packagebase.projetoreferenciasb.exception.ValidationException;
 import br.com.packagebase.projetoreferenciasb.utils.TraceUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Aspect
 @Configuration
-public class TraceTransactionConfig {
+public class LogTransacionalConfig {
 
     @AfterThrowing(pointcut = "execution(* br.com.packagebase.projetoreferenciasb.*.*.*(..))", throwing = "e")
     public void before(Exception e){
@@ -21,15 +21,15 @@ public class TraceTransactionConfig {
         }
     }
 
-    @Pointcut("@annotation(traceTransaction)")
-    public void callAt(TraceTransaction traceTransaction) {
+    @Pointcut("@annotation(logApp)")
+    public void callAt(LogApp logApp) {
    }
 
-    @Around("callAt(traceTransaction)")
+    @Around("callAt(logApp)")
     public Object around(ProceedingJoinPoint pjp,
-                         TraceTransaction traceTransaction) throws Throwable {
-        TraceUtils.setTransaction(TraceUtils.TRANSACTION_RESOURCE, traceTransaction.recurso().name());
-        TraceUtils.setTransaction(TraceUtils.TRANSACTION_OPERATION, traceTransaction.operacao().name());
+                         LogApp logApp) throws Throwable {
+        TraceUtils.setTransaction(TraceUtils.TRANSACTION_RESOURCE, logApp.recurso().name());
+        TraceUtils.setTransaction(TraceUtils.TRANSACTION_OPERATION, logApp.operacao().name());
         return pjp.proceed();
     }
 

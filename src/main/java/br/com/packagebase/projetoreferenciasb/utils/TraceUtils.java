@@ -21,6 +21,7 @@ public class TraceUtils {
     public static final String TRANSACTION_ID = "transactionId";
     public static final String TRANSACTION_EXCEPTION = "transactionException";
     public static final String TRANSACTION_TIME_BEGIN = "transactionTimeBegin";
+    public static final String TRANSACTION_REVISION = "transactionRevision";
 
     public static String generateTraceId() {
         return RandomStringUtils.randomAlphanumeric(15).toUpperCase();

@@ -1,7 +1,7 @@
-create table tbl_auditoria
+create table tbl_revinfo
 (
     id         bigserial not null
-        constraint pk_auditoria
+        constraint pk_revinfo
             primary key,
     ip         varchar(20),
     timestamp  bigint    not null,
@@ -24,10 +24,10 @@ create table tbl_configuracao
 
 create table tbl_configuracao_aud
 (
-    id         bigserial not null,
-    rev        integer   not null
+    id         bigint not null,
+    rev        bigint not null
         constraint fk_configuracao_aud
-            references tbl_auditoria,
+            references tbl_revinfo,
     revtype    smallint,
     nome       varchar(25),
     valor      varchar(50),
@@ -38,14 +38,17 @@ create table tbl_configuracao_aud
         primary key (id, rev)
 );
 
-create table tbl_log_trace
+create table tbl_log_transacional
 (
     id           bigserial   not null
-        constraint pk_log_trace
+        constraint pk_log_transacional
             primary key,
     chave        bigint,
     dominio      varchar(15),
     operacao     varchar(15),
+    rev          bigint
+        constraint fk_log_transacional_aud
+            references tbl_revinfo,
     req_path     varchar(200),
     resp_status  smallint,
     resp_errors  varchar(255),

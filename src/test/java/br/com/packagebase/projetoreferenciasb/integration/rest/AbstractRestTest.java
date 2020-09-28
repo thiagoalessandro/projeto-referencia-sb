@@ -68,6 +68,15 @@ public abstract class AbstractRestTest<T extends AbstractEntity, S extends Gener
         }
     }
 
+    protected void delete(T entity) {
+        if(entity != null) {
+            try {
+                getService().findById(entity.getId())
+                        .ifPresent(value -> getService().deleteById(entity.getId()));
+            } catch (NullPointerException ignored) {}
+        }
+    }
+
     protected abstract S getService();
 
 }

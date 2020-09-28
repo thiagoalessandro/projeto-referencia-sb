@@ -1,16 +1,15 @@
 package br.com.packagebase.projetoreferenciasb.model;
 
-import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.hibernate.envers.AuditTable;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
+@SuperBuilder
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Audited(auditParents = AbstractEntity.class)

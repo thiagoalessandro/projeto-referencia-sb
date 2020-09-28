@@ -2,18 +2,20 @@ package br.com.packagebase.projetoreferenciasb.model;
 
 import br.com.packagebase.projetoreferenciasb.domain.DominioOperacao;
 import br.com.packagebase.projetoreferenciasb.domain.DominioRecurso;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @ToString
-@Table(name = "tbl_log_trace")
-public class LogTrace {
+@Table(name = "tbl_log_transacional")
+public class LogTransacional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +32,9 @@ public class LogTrace {
 
     @Column(name = "chave")
     private Long chave;
+
+    @Column(name = "rev")
+    private Long revisao;
 
     @Column(name = "trace_id", length = 15, nullable = false)
     private String traceId;
@@ -69,13 +74,5 @@ public class LogTrace {
 
     @Column(name = "resp_time_ms", nullable = false)
     private Integer tempoRespostaMs;
-
-    public Integer calcularTempoResposaMilisegundos() {
-        if (dataHoraInicio != null && dataHoraFim != null) {
-            Long tempoResposta = dataHoraFim.getTime() - dataHoraInicio.getTime();
-            return tempoResposta.intValue();
-        }
-        return null;
-    }
 
 }

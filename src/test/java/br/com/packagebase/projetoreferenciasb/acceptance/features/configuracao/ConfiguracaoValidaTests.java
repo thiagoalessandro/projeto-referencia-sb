@@ -46,7 +46,11 @@ public class ConfiguracaoValidaTests extends AbstractRestTest<Configuracao, Conf
 
     @Dada("^uma configuracao valida$")
     public void configuracaoValida() {
-        requestDTO = ConfiguracaoTestDTO.mock(null, "SISTEMA", "SB");
+        requestDTO = ConfiguracaoTestDTO.builder()
+                .nome("SISTEMA")
+                .valor("SB")
+                .usuarioAtualizacao("ADMIN")
+                .build();
     }
 
     @Quando("^a configuracao valida e cadastrada$")

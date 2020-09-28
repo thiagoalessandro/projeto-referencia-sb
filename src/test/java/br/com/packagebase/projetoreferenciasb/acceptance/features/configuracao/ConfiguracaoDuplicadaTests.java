@@ -29,7 +29,7 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     @Getter(AccessLevel.PROTECTED)
     private ConfiguracaoService service;
 
-    private Configuracao configuracaoInicial = new Configuracao();
+    private Configuracao configuracaoInicial;
 
     private ConfiguracaoTestDTO requestDTO;
 
@@ -44,13 +44,16 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     @After
     @Override
     public void clean() {
-        delete(configuracaoInicial.getId());
+        delete(configuracaoInicial);
     }
 
     @Dada("^uma configuracao duplicada$")
     public void configuracaoDuplicada() {
         preparaConfiguracaoDuplicada();
-        requestDTO = ConfiguracaoTestDTO.mock(null, "SISTEMA", "SB");
+        requestDTO = ConfiguracaoTestDTO.builder()
+                .nome("SISTEMA")
+                .valor("SB")
+                .build();
     }
 
     @Quando("^a configuracao duplicada e cadastrada$")
@@ -68,10 +71,12 @@ public class ConfiguracaoDuplicadaTests extends AbstractRestTest<Configuracao, C
     }
 
     private void preparaConfiguracaoDuplicada() {
-        configuracaoInicial.setNome("SISTEMA");
-        configuracaoInicial.setValor("TESTE");
-        configuracaoInicial.setSituacaoRegistro(DominioSituacaoRegistro.ATIVO);
-        configuracaoInicial.setUsuarioAtualizacao("ADMIN");
+        configuracaoInicial = Configuracao.builder()
+                .nome("SISTEMA")
+                .valor("TESTE")
+                .situacaoRegistro(DominioSituacaoRegistro.ATIVO)
+                .usuarioAtualizacao("ADMIN")
+                .build();
         configuracaoInicial = service.saveAndFlush(configuracaoInicial);
     }
 

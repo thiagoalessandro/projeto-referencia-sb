@@ -86,7 +86,7 @@ Os dados de revisão são gerados com auxílio do hibernate envers (biblioteca) 
 Segue abaixo um modelo extraído da tabela **tbl_configuracao_aud** a qual armazena as revisões dos registros de tbl_configuracao: 
 
 <h1 align="center">
-    <img src = ".examples/auditoria.png" width="300">
+    <img src = ".examples/auditoria.png" width="850">
 </h1>
 
 A coluna **revtype** representa as seguintes operações:
@@ -97,13 +97,13 @@ A coluna **revtype** representa as seguintes operações:
 2 = EXCLUIR
 ```
 
-# Versionamento de script SQL
+# Versionamento de scripts SQL
 
 O versionamento dos scripts SQL sejam eles DML ou DDL ocorrem com auxílio do flyway possibilitando a execução/migração, automatização de processo CI (integração contínua) e também rollback no caso de mudanças.
 
-Os scripts devem ser gerenciados no diretório "src/main/resources/db.migration".
+Os scripts devem ser gerenciados no diretório "src/main/resources/db.migration" do projeto.
 
-Segue abaixo a versão atual da última migração através de uma requisição a "/actuator/flyway":
+Segue abaixo a versão atual da última migração através de uma requisição GET a "/actuator/flyway":
 
 ```json
 {
@@ -133,9 +133,9 @@ Segue abaixo a versão atual da última migração através de uma requisição 
 }
 ```
 
-# Versão Aplicação
+# Versão da Aplicação
 
-A versão da aplicação está disponível através de uma consulta a "/actuator/info"
+A versão da aplicação está disponível através de uma consulta GET a "/actuator/info"
 
 Segue abaixo o json com dados da versão da aplicação e data/hora da geração de build:
 
@@ -153,23 +153,23 @@ Segue abaixo o json com dados da versão da aplicação e data/hora da geração
 
 # Testes
 
-Testes de aceitação automatizados são executados com auxílio do cucumber (ferramenta de apoio ao BDD).
+Os testes de aceitação automatizados são executados com auxílio do cucumber (ferramenta de apoio ao BDD).
 
 Segue abaixo o resultado da execução dos testes de aceitação da **feature configurações**:
 
 <h1 align="center">
-    <img src = ".examples/cucumber.png" width="300">
+    <img src = ".examples/cucumber.png" width="450">
 </h1>  
 
 # Integração contínua
 
-A integração contínua ocorre por meio do arquivo jenkinsfile que define uma pipeline com os seguintes steps:
+A integração contínua ocorre através do arquivo jenkinsfile que define uma pipeline com os seguintes steps:
 
 <h1 align="center">
     <img src = ".examples/jenkins.png" width="850">
 </h1>  
 
-Detalhamento das steps:
+As steps acima representam:
 
 1. Checkout da aplicação (git).
 2. Execução de Testes (maven + cucumber).
@@ -196,6 +196,11 @@ O monitoramento da aplicação ocorre através do **actuator** o qual reune mét
 </h1>
 
 ## Grafana + Prometheus
+
+O Grafana (ferramenta de análise e monitormaento) em conjunto com o prometheus (datasource) apresentam os dados releavntes á saude da aplicação.
+
+Segue abaixo o dashboard da aplicação com gráficos representando consumo de memória (jvm), consumo de cpu, registros de logs (INFO, ERROR...) etc.
+
 <h1 align="center">
     <img src = ".examples/grafana_prometheus_1.png" width="850">
     <img src = ".examples/grafana_prometheus_2.png" width="850">
@@ -204,6 +209,7 @@ O monitoramento da aplicação ocorre através do **actuator** o qual reune mét
     <img src = ".examples/grafana_prometheus_5.png" width="850">
 </h1>
 
+OBS: Cada gráfico possibilita a configuração de alertas (via e-mail, slack, telegram...) de acordo com regras aplicadas sobre eles.
 
 ### Documentação de referência
 

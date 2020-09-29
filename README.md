@@ -13,7 +13,7 @@ Projeto de referência spring boot com recursos essenciais para possibilitar int
 - Cucumber
 - Swagger
 - Postgres
-- H2 (testes)
+- H2 (Execução de testes)
 
 # :hammer: Configuração de Ambiente
 
@@ -71,9 +71,9 @@ Segue abaixo um modelo json extraído a partir de uma requisição ao serviço "
   "requestQuery": null,
   "ip": "170.245.95.224",
   "usuario": "thiago.alessandro",
-  "dataHoraInicio": "2020-09-29T00:41:42.934+0000",
-  "dataHoraFim": "2020-09-29T00:41:45.477+0000",
-  "tempoRespostaMs": 259
+  "dataHoraInicio": "2020-09-29T00:41:45.230+0000",
+  "dataHoraFim": "2020-09-29T00:41:45.480+0000",
+  "tempoRespostaMs": 250
 }
 ``` 
 
@@ -169,7 +169,7 @@ A integração contínua ocorre através do arquivo jenkinsfile que define uma p
     <img src = ".examples/jenkins.png" width="850">
 </h1>  
 
-As steps acima representam:
+Os steps acima representam:
 
 1. Checkout da aplicação (git).
 2. Execução de Testes (maven + cucumber).
@@ -197,7 +197,7 @@ O monitoramento da aplicação ocorre através do **actuator** o qual reune mét
 
 ## Grafana + Prometheus
 
-O Grafana (ferramenta de análise e monitormaento) em conjunto com o prometheus (datasource) apresentam os dados relevantes á saude da aplicação.
+O Grafana (ferramenta de análise e monitormaento) em conjunto com o prometheus (datasource) apresentam os dados relevantes à saude da aplicação.
 
 Segue abaixo o dashboard da aplicação com gráficos representando consumo de memória (jvm), consumo de cpu, registros de logs (INFO, ERROR...) etc.
 

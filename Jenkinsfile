@@ -68,6 +68,6 @@ def pushToImage(containerName, tag, dockerHubUser, dockerPassword){
 }
 
 def runApp(containerName, tag, dockerHubUser, httpPortHost, httpPortContainer){
-    sh "docker run -d --rm -p $httpPortHost:$httpPortContainer --name $containerName --network dashboard_monitor-net -e DATABASE_HOST=${env.DATABASE_HOST} -e DATABASE_NAME=${env.DATABASE_NAME} -e DATABASE_USER=${env.DATABASE_USER} -e DATABASE_PASSWORD=${env.DATABASE_PASSWORD} $dockerHubUser/$containerName:$tag"
+    sh "docker run -d --rm -p $httpPortHost:$httpPortContainer --name $containerName --network dashboard_monitor-net -e DATABASE_HOST=${env.DATABASE_HOST} -e DATABASE_NAME=${env.DATABASE_NAME} -e DATABASE_USER=${env.DATABASE_USER} -e DATABASE_PASSWORD=${env.DATABASE_PASSWORD} -e LOG_LEVEL=${env.LOG_LEVEL} -e SHOW_SQL=${env.SHOW_SQL} -e PROFILE=${env.PROFILE} $dockerHubUser/$containerName:$tag"
     echo "Application started on port: ${httpPortHost} (http)"
 }

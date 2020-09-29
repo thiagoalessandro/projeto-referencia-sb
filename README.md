@@ -209,7 +209,7 @@ Segue abaixo o dashboard da aplicação com gráficos representando consumo de m
     <img src = ".examples/grafana_prometheus_5.png" width="850">
 </h1>
 
-OBS: Cada gráfico possibilita a configuração de alertas (via e-mail, slack, telegram...) de acordo com regras aplicadas sobre eles.
+OBS: Cada gráfico possibilita a configuração de alertas (via e-mail, slack, telegram...) de acordo com regras aplicadas a eles.
 
 ### Documentação de referência
 

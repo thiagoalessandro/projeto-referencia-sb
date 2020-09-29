@@ -1,7 +1,7 @@
 # Projeto de referência Spring Boot
-Projeto de referência em spring boot com recursos essenciais para possibilitar integração contínua e monitoramento. 
+Projeto de referência spring boot com recursos essenciais para possibilitar integração contínua via jenkins e monitoramento via grafana e prometheus. 
 
-# Tenologia
+# Tecnologias
 - Spring Boot
 - Tomcat 
 - Flyway
@@ -13,17 +13,63 @@ Projeto de referência em spring boot com recursos essenciais para possibilitar 
 - Cucumber
 - Swagger
 - Postgres
-- H2 (tests)
+- H2 (testes)
 
 # Configuração Ambiente
+
+## Variáveis de ambiente
+
+```
+DATABASE_HOST=localhost
+DATABASE_NAME=db
+DATABASE_USER=admin
+DATABASE_PASSWORD=admin
+```
+OBS: Podem ser substituídas diretamente no arquivo _application.yml_
  
-Executar docker-compose
+## Criar volume docker
+
+```shell script
+docker volume create postgres
+```
+
+## Iniciar container do postgres
+
+```shell script
+docker-compose up  
+```
 
 # Monitoramento
-Escrever sobre o actuator e prometheus
+
+O monitoramento da aplicação ocorre por meio do **actuator** o qual reune métricas e as expõe em tempo de execução.
+
+## Actuator
+
+<h1 align="center">
+    <img src = ".examples/actuator.png" width="500" alt="App gif">
+</h1>
+
+## Prometheus
+
+<h1 align="center">
+    <img src = ".examples/actuator_prometheus.png" width="500" alt="App gif">
+</h1>
+
+## Grafana + Prometheus
+<h1 align="center">
+    <img src = ".examples/grafana_prometheus_1.png" width="500" alt="App gif">
+    <img src = ".examples/grafana_prometheus_2.png" width="500" alt="App gif">
+    <img src = ".examples/grafana_prometheus_3.png" width="500" alt="App gif">
+    <img src = ".examples/grafana_prometheus_4.png" width="500" alt="App gif">
+    <img src = ".examples/grafana_prometheus_5.png" width="500" alt="App gif">
+</h1>
 
 # Documentação
-Escrever sobre o swagger
+A documentação da API é automatizada pelo swagger que também auxilia no consumo de APIs REST.
+
+<h1 align="center">
+    <img src = ".examples/swagger.png" width="500" alt="App gif">
+</h1>
 
 # Análise de log (Rastreabilidade) - TraceId
 Incluir endpoint

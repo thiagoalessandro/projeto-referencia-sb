@@ -197,7 +197,7 @@ O monitoramento da aplicação ocorre através do **actuator** o qual reune mét
 
 ## Grafana + Prometheus
 
-O Grafana (ferramenta de análise e monitormaento) em conjunto com o prometheus (datasource) apresentam os dados releavntes á saude da aplicação.
+O Grafana (ferramenta de análise e monitormaento) em conjunto com o prometheus (datasource) apresentam os dados relevantes á saude da aplicação.
 
 Segue abaixo o dashboard da aplicação com gráficos representando consumo de memória (jvm), consumo de cpu, registros de logs (INFO, ERROR...) etc.
 

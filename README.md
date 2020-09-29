@@ -1,7 +1,7 @@
-# Projeto de referência Spring Boot
+# :computer: Projeto de referência Spring Boot
 Projeto de referência spring boot com recursos essenciais para possibilitar integração contínua via jenkins e monitoramento via grafana e prometheus. 
 
-# Tecnologias
+# :page_facing_up: Tecnologias
 - Spring Boot
 - Tomcat 
 - Flyway
@@ -15,7 +15,7 @@ Projeto de referência spring boot com recursos essenciais para possibilitar int
 - Postgres
 - H2 (testes)
 
-# Configuração de Ambiente
+# :hammer: Configuração de Ambiente
 
 ## Variáveis de ambiente
 
@@ -42,14 +42,14 @@ docker volume create postgres
 docker-compose up  
 ```
 
-# Documentação da API REST
+# :page_with_curl: Documentação da API REST
 A documentação da API é automatizada pela biblioteca swagger que também auxilia no consumo de APIs REST.
 
 <h1 align="center">
     <img src = ".examples/swagger.png" width="850">
 </h1>
 
-# Log transacional + Rastreabilidade via TraceId
+# :mag_right: Log transacional + Rastreabilidade via TraceId
 
 Os dados de logs transacionais são gerados com base no paradgma orientado a aspecto (POA) por meio do AspectJ e o auxilio do MDC (Mapped Diagnostic Context) para armazenar informações da transação.
 
@@ -79,7 +79,7 @@ Segue abaixo um modelo json extraído a partir de uma requisição ao serviço "
 
 **OBS:** O campo **rev** representa a revisão do registro no contexto da auditoria (tabela tbl_revinfo).
 
-# Auditoria
+# :straight_ruler: Auditoria
 
 Os dados de revisão são gerados com auxílio do hibernate envers (biblioteca) que atua na camada de persistência junto à JPA (Java Persistence API).
 
@@ -97,7 +97,7 @@ A coluna **revtype** representa as seguintes operações:
 2 = EXCLUIR
 ```
 
-# Versionamento de scripts SQL
+# :cd: Versionamento de scripts SQL
 
 O versionamento dos scripts SQL sejam eles DML ou DDL ocorrem com auxílio do flyway possibilitando a execução/migração, automatização de processo CI (integração contínua) e também rollback no caso de mudanças.
 
@@ -133,7 +133,7 @@ Segue abaixo a versão atual da última migração através de uma requisição 
 }
 ```
 
-# Versão da Aplicação
+# :pushpin: Versão da Aplicação
 
 A versão da aplicação está disponível através de uma consulta GET a "/actuator/info"
 
@@ -151,7 +151,7 @@ Segue abaixo o json com dados da versão da aplicação e data/hora da geração
 }
 ```
 
-# Testes
+# :umbrella: Testes
 
 Os testes de aceitação automatizados são executados com auxílio do cucumber (ferramenta de apoio ao BDD).
 
@@ -161,7 +161,7 @@ Segue abaixo o resultado da execução dos testes de aceitação da **feature co
     <img src = ".examples/cucumber.png" width="450">
 </h1>  
 
-# Integração contínua
+# :sunny: Integração contínua
 
 A integração contínua ocorre através do arquivo jenkinsfile que define uma pipeline com os seguintes steps:
 
@@ -179,7 +179,7 @@ As steps acima representam:
 6. Registro de imagem docker no docker hub.
 7. Execução de container com base na última imagem gerada. 
 
-# Monitoramento
+# :bar_chart: Monitoramento
 
 O monitoramento da aplicação ocorre através do **actuator** o qual reune métricas e expõe em tempo de execução.
 
@@ -211,7 +211,7 @@ Segue abaixo o dashboard da aplicação com gráficos representando consumo de m
 
 OBS: Cada gráfico possibilita a configuração de alertas (via e-mail, slack, telegram...) de acordo com regras aplicadas sobre eles.
 
-### Documentação de referência
+# Documentação de referência
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.3.RELEASE/maven-plugin/reference/html/)

@@ -15,7 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "Log Transacional", tags = "Log Transacional")
+@Api(value = "Logs Transacionais", tags = "Logs Transacionais")
 @RestController
 @RequestMapping(ResourceWSRest.LOG_TRANSACIONAL)
 public class LogTransacionalRestController extends AbstractRestController {
@@ -28,7 +28,7 @@ public class LogTransacionalRestController extends AbstractRestController {
 
     @GetMapping
     @LogApp(recurso = DominioRecurso.LOG_TRANSACIONAL, operacao = DominioOperacao.CONSULTAR)
-    @ApiOperation(value = "Consultar log transacional")
+    @ApiOperation(value = "Consultar logs transacionais")
     public ResponseEntity<Response<Page<LogTransacionalResponseDTO>>> search(@RequestParam(value = "search") String search,
                                                                   @RequestParam(name = "page") Integer page,
                                                                   @RequestParam(name = "size") Integer size) throws ValidationException {

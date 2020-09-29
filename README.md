@@ -15,7 +15,7 @@ Projeto de referência spring boot com recursos essenciais para possibilitar int
 - Postgres
 - H2 (testes)
 
-# Configuração Ambiente
+# Configuração de Ambiente
 
 ## Variáveis de ambiente
 
@@ -24,6 +24,9 @@ DATABASE_HOST=localhost
 DATABASE_NAME=db
 DATABASE_USER=admin
 DATABASE_PASSWORD=admin
+LOG_LEVEL=INFO
+SHOW_SQL=true
+PROFILE=dev
 ```
 OBS: Podem ser substituídas diretamente no arquivo _application.yml_
  
@@ -46,29 +49,29 @@ O monitoramento da aplicação ocorre por meio do **actuator** o qual reune mét
 ## Actuator
 
 <h1 align="center">
-    <img src = ".examples/actuator.png" width="500" alt="App gif">
+    <img src = ".examples/actuator.png" width="800">
 </h1>
 
 ## Prometheus
 
 <h1 align="center">
-    <img src = ".examples/actuator_prometheus.png" width="500" alt="App gif">
+    <img src = ".examples/actuator_prometheus.png" width="800">
 </h1>
 
 ## Grafana + Prometheus
 <h1 align="center">
-    <img src = ".examples/grafana_prometheus_1.png" width="500" alt="App gif">
-    <img src = ".examples/grafana_prometheus_2.png" width="500" alt="App gif">
-    <img src = ".examples/grafana_prometheus_3.png" width="500" alt="App gif">
-    <img src = ".examples/grafana_prometheus_4.png" width="500" alt="App gif">
-    <img src = ".examples/grafana_prometheus_5.png" width="500" alt="App gif">
+    <img src = ".examples/grafana_prometheus_1.png" width="800">
+    <img src = ".examples/grafana_prometheus_2.png" width="800">
+    <img src = ".examples/grafana_prometheus_3.png" width="800">
+    <img src = ".examples/grafana_prometheus_4.png" width="800">
+    <img src = ".examples/grafana_prometheus_5.png" width="800">
 </h1>
 
 # Documentação
 A documentação da API é automatizada pelo swagger que também auxilia no consumo de APIs REST.
 
 <h1 align="center">
-    <img src = ".examples/swagger.png" width="500" alt="App gif">
+    <img src = ".examples/swagger.png" width="800">
 </h1>
 
 # Análise de log (Rastreabilidade) - TraceId

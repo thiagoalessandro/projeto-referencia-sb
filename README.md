@@ -229,4 +229,3 @@ OBS: Cada gráfico possibilita a configuração de alertas (via e-mail, slack, t
 * [Hibernate Envers](https://hibernate.org/orm/envers/)
 * [Swagger](https://swagger.io/)
 
-

@@ -6,11 +6,11 @@ import br.com.packagebase.projetoreferenciasb.controller.resource.ResourceWSRest
 import br.com.packagebase.projetoreferenciasb.domain.DominioSituacaoRegistro;
 import br.com.packagebase.projetoreferenciasb.model.Configuracao;
 import br.com.packagebase.projetoreferenciasb.service.ConfiguracaoService;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.pt.Dada;
-import cucumber.api.java.pt.Entao;
-import cucumber.api.java.pt.Quando;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.pt.Dada;
+import io.cucumber.java.pt.Entao;
+import io.cucumber.java.pt.Quando;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;

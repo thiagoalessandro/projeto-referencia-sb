@@ -17,7 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <org.modelmapper.version>2.3.0</org.modelmapper.version>
-        <cucumber.version>1.2.4</cucumber.version>
+        <cucumber.version>6.8.1</cucumber.version>
         <io.springfox.version>2.9.2</io.springfox.version>
         <resource.delimiter>@</resource.delimiter>
         <sonar.organization>thiagoalessandro</sonar.organization>
@@ -118,30 +118,17 @@
         </dependency>
 
         <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
+            <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>info.cukes</groupId>
+            <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

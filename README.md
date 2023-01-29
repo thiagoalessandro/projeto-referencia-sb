@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=thiagoalessandro_projeto-referencia-sb&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=thiagoalessandro_projeto-referencia-sb)
+
 # :computer: Projeto de referência Spring Boot
 Projeto de referência spring boot com recursos essenciais para possibilitar integração contínua via jenkins e monitoramento via grafana e prometheus. 
 
